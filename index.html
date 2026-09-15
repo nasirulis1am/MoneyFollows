@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>MONEY FOLLOWS</title>
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #0b0d12;
+      color: #ffffff;
+      min-height: 100vh;
+      padding-bottom: 85px;
+    }
+
+    .container {
+      max-width: 520px;
+      margin: auto;
+      padding: 18px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .brand {
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .profile {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #1d222c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .balance-card {
+      background: linear-gradient(135deg, #171c26, #10131a);
+      border: 1px solid #252b36;
+      border-radius: 22px;
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .small {
+      color: #8d95a5;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .balance {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .withdraw {
+      width: 100%;
+      border: 0;
+      border-radius: 13px;
+      padding: 13px;
+      background: #ffffff;
+      color: #0b0d12;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 24px 0 12px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .card {
+      background: #131720;
+      border: 1px solid #232936;
+      border-radius: 18px;
+      padding: 18px;
+      min-height: 120px;
+    }
+
+    .icon {
+      font-size: 25px;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .card-text {
+      color: #858d9c;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .activity {
+      background: #131720;
+      border: 1px solid #232936;
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #232936;
+    }
+
+    .stat-row:last-child {
+      border-bottom: none;
+    }
+
+    .stat-name {
+      color: #929aaa;
+      font-size: 13px;
+    }
+
+    .stat-value {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: rgba(13, 15, 21, 0.96);
+      border-top: 1px solid #242936;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-item {
+      color: #737b8b;
+      text-align: center;
+      font-size: 11px;
+    }
+
+    .nav-item.active {
+      color: #ffffff;
+    }
+
+    .nav-icon {
+      font-size: 20px;
+      display: block;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="header">
+      <div class="brand">MONEY FOLLOWS</div>
+      <div class="profile">👤</div>
+    </div>
+
+    <div class="balance-card">
+      <div class="small">Total Balance</div>
+      <div class="balance">₹0.00</div>
+      <button class="withdraw">Withdraw</button>
+    </div>
+
+    <div class="section-title">Earn</div>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="icon">📺</div>
+        <div class="card-title">Watch & Earn</div>
+        <div class="card-text">Complete available activities and earn rewards.</div>
+      </div>
+
+      <div class="card">
+        <div class="icon">📋</div>
+        <div class="card-title">Tasks</div>
+        <div class="card-text">Explore available tasks and activities.</div>
+      </div>
+
+      <div class="card">
+        <div class="icon">🎁</div>
+        <div class="card-title">Daily Bonus</div>
+        <div class="card-text">Check your daily activity and rewards.</div>
+      </div>
+
+      <div class="card">
+        <div class="icon">👥</div>
+        <div class="card-title">Invite</div>
+        <div class="card-text">Invite friends and track your referrals.</div>
+      </div>
+
+    </div>
+
+    <div class="section-title">Your Activity</div>
+
+    <div class="activity">
+
+      <div class="stat-row">
+        <span class="stat-name">Daily Activity</span>
+        <span class="stat-value">0</span>
+      </div>
+
+      <div class="stat-row">
+        <span class="stat-name">Total Watched</span>
+        <span class="stat-value">0</span>
+      </div>
+
+      <div class="stat-row">
+        <span class="stat-name">Total Earned</span>
+        <span class="stat-value">₹0.00</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="bottom-nav">
+
+    <div class="nav-item active">
+      <span class="nav-icon">⌂</span>
+      Home
+    </div>
+
+    <div class="nav-item">
+      <span class="nav-icon">▶</span>
+      Earn
+    </div>
+
+    <div class="nav-item">
+      <span class="nav-icon">👥</span>
+      Invite
+    </div>
+
+    <div class="nav-item">
+      <span class="nav-icon">💳</span>
+      Wallet
+    </div>
+
+  </div>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+
+    tg.ready();
+    tg.expand();
+  </script>
+
+</body>
+  </html>
