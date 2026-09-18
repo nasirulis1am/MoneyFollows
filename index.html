@@ -1,723 +1,880 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>MONEY FOLLOWS</title>
-  <!-- Telegram WebApp SDK -->
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
-    :root {
-      --bg-body: #0a0c10;
-      --bg-surface: #121620;
-      --bg-surface-elevated: #181f2c;
-      --bg-surface-hover: #1e2738;
-      --border-subtle: #242c3d;
-      --border-highlight: #333d54;
-      --accent-emerald: #10b981;
-      --accent-emerald-dark: #059669;
-      --accent-emerald-dim: rgba(16, 185, 129, 0.12);
-      --text-primary: #f8fafc;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --danger: #f43f5e;
-      --warning: #f59e0b;
-      --safe-area-bottom: env(safe-area-inset-bottom, 0px);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>MONEY FOLLOWS</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  :root{
+    --bg:#0A0D16;
+    --surface:#121826;
+    --surface-2:#0E1320;
+    --border:#232B3E;
+    --border-strong:#2C3650;
+    --text:#F3F5F9;
+    --text-dim:#8B93A9;
+    --text-faint:#576078;
+    --gold:#F2C94C;
+    --cyan:#3FA9F5;
+    --cyan-dim:#1D2E42;
+    --teal:#2FD9A8;
+    --teal-bg:#0E2420;
+    --teal-border:#1E4A3E;
+    --red:#F0665A;
+    --radius-lg:20px;
+    --radius-md:16px;
+    --radius-sm:12px;
+    --radius-pill:99px;
+  }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-      user-select: none;
-    }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg-body);
-      color: var(--text-primary);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      overflow-x: hidden;
-      font-size: 14px;
-      line-height: 1.4;
-    }
+  html,body{
+    margin:0; padding:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    width:100%;
+    overflow-x:hidden;
+  }
 
-    #app-container {
-      width: 100%;
-      max-width: 440px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      background-color: var(--bg-body);
-      padding-bottom: calc(72px + var(--safe-area-bottom));
-    }
+  body{
+    padding-bottom:78px;
+    min-height:100vh;
+  }
 
-    /* Minimal App Header */
-    header.app-header {
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border-subtle);
-      background-color: rgba(10, 12, 16, 0.92);
-      backdrop-filter: blur(8px);
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
+  ::-webkit-scrollbar{ display:none; }
 
-    .brand-title {
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: 1.2px;
-      color: var(--text-primary);
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+  button{
+    font-family:inherit;
+    border:none;
+    outline:none;
+    cursor:pointer;
+    -webkit-user-select:none;
+    user-select:none;
+  }
 
-    .brand-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background-color: var(--accent-emerald);
-      box-shadow: 0 0 8px var(--accent-emerald);
-    }
+  input{ font-family:inherit; }
 
-    .header-user-tag {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-secondary);
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      padding: 4px 10px;
-      border-radius: 999px;
-      max-width: 150px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+  .app{
+    max-width:520px;
+    margin:0 auto;
+    padding:0 16px;
+  }
 
-    /* Tab Page Containers */
-    .tab-view {
-      display: none;
-      padding: 14px 16px;
-      animation: fadeIn 0.15s ease-out forwards;
-    }
+  /* ---------- Header ---------- */
+  .header{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:16px 0 14px 0;
+  }
 
-    .tab-view.active {
-      display: block;
-    }
+  .brand{
+    font-size:19px;
+    font-weight:800;
+    letter-spacing:0.2px;
+    color:var(--text);
+  }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(3px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+  .brand-follows{ color:var(--gold); }
 
-    /* Card Utilities */
-    .card {
-      background-color: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 12px;
-    }
+  .brand-dot{
+    width:8px; height:8px;
+    border-radius:50%;
+    background:var(--teal);
+    box-shadow:0 0 8px rgba(47,217,168,0.65);
+    margin-left:2px;
+  }
 
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
+  /* ---------- Page container ---------- */
+  .page{ display:none; animation:fadein .18s ease; }
+  .page.active{ display:block; }
 
-    .card-title-sm {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-    }
+  @keyframes fadein{
+    from{ opacity:0; transform:translateY(4px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
 
-    /* User Profile Info Card */
-    .user-info-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      background-color: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      border-radius: 10px;
-      padding: 10px;
-      margin-bottom: 12px;
-    }
+  /* ---------- Balance card ---------- */
+  .balance-card{
+    background:linear-gradient(160deg,#141B2C 0%, #0F1424 100%);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:20px 18px;
+    margin-bottom:22px;
+  }
 
-    .user-info-cell {
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
+  .balance-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+  }
 
-    .user-info-label {
-      font-size: 10px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      font-weight: 600;
-      letter-spacing: 0.4px;
-      margin-bottom: 2px;
-    }
+  .balance-label{
+    font-size:11px;
+    font-weight:600;
+    color:var(--text-dim);
+    letter-spacing:0.6px;
+    margin-bottom:6px;
+  }
 
-    .user-info-value {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-primary);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+  .balance-value{
+    font-size:34px;
+    font-weight:800;
+    letter-spacing:-0.5px;
+    color:var(--text);
+  }
 
-    /* Balance Showcase Card */
-    .balance-card {
-      background: linear-gradient(180deg, var(--bg-surface-elevated) 0%, var(--bg-surface) 100%);
-      border: 1px solid var(--border-highlight);
-      border-radius: 14px;
-      padding: 16px;
-      text-align: center;
-      margin-bottom: 12px;
-    }
+  .balance-value .sym{ color:var(--teal); }
 
-    .balance-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.2px;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
+  .balance-sub{
+    font-size:12px;
+    color:var(--text-faint);
+    margin-top:6px;
+  }
 
-    .balance-amount {
-      font-size: 32px;
-      font-weight: 800;
-      color: var(--text-primary);
-      letter-spacing: -0.5px;
-      margin-bottom: 2px;
-    }
+  .balance-user{
+    text-align:right;
+    flex-shrink:0;
+  }
 
-    /* Metric Columns */
-    .metrics-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 12px;
-    }
+  .balance-user-name{
+    font-size:13px;
+    font-weight:700;
+    color:var(--text);
+    white-space:nowrap;
+    max-width:120px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
 
-    .metric-box {
-      background-color: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 10px;
-      padding: 10px 8px;
-      text-align: center;
-    }
+  .balance-user-id{
+    font-size:10.5px;
+    color:var(--text-faint);
+    margin-top:2px;
+  }
 
-    .metric-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
+  .balance-user-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:6px;
+    justify-content:flex-end;
+  }
 
-    .metric-val {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
+  .avatar{
+    width:38px; height:38px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#8B7CFA,#3FA9F5);
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px; font-weight:800; color:#0A0D16;
+    flex-shrink:0;
+  }
 
-    /* Daily Bonus Card */
-    .bonus-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 12px;
-    }
+  .quick-actions{
+    display:flex;
+    gap:8px;
+    margin-top:16px;
+  }
 
-    .bonus-left {
-      display: flex;
-      flex-direction: column;
-    }
+  .quick-btn{
+    flex:1;
+    background:rgba(63,169,245,0.07);
+    border:1px solid var(--border-strong);
+    border-radius:var(--radius-pill);
+    color:var(--text-dim);
+    font-size:12px;
+    font-weight:600;
+    padding:9px 8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+  }
 
-    .bonus-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 2px;
-    }
+  .quick-btn svg{
+    width:13px; height:13px;
+    stroke:currentColor;
+    fill:none;
+    stroke-width:2;
+    flex-shrink:0;
+  }
 
-    .bonus-amount-badge {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--accent-emerald);
-    }
+  .quick-btn:active{ opacity:0.7; }
 
-    /* Action Buttons */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: none;
-      outline: none;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
-      border-radius: 8px;
-      padding: 9px 16px;
-      cursor: pointer;
-      transition: background 0.15s ease, opacity 0.15s ease, transform 0.05s ease;
-    }
+  /* ---------- Section header ---------- */
+  .section-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:0 2px 10px 2px;
+  }
 
-    .btn:active {
-      transform: scale(0.98);
-    }
+  .section-header-left{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
 
-    .btn-primary {
-      background-color: var(--accent-emerald);
-      color: #062419;
-    }
+  .section-dot{
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--cyan);
+    box-shadow:0 0 7px rgba(63,169,245,0.7);
+    flex-shrink:0;
+  }
 
-    .btn-primary:hover {
-      background-color: var(--accent-emerald-dark);
-    }
+  .section-title{
+    font-size:17px;
+    font-weight:800;
+    color:var(--text);
+  }
 
-    .btn-secondary {
-      background-color: var(--bg-surface-elevated);
-      color: var(--text-primary);
-      border: 1px solid var(--border-subtle);
-    }
+  .section-badge{
+    font-size:11px;
+    font-weight:700;
+    color:var(--teal);
+    background:var(--teal-bg);
+    border:1px solid var(--teal-border);
+    padding:5px 11px;
+    border-radius:var(--radius-pill);
+    white-space:nowrap;
+  }
 
-    .btn-secondary:hover {
-      background-color: var(--bg-surface-hover);
-    }
+  section.block{ margin-bottom:22px; }
 
-    .btn-disabled,
-    .btn:disabled {
-      background-color: var(--bg-surface-elevated) !important;
-      color: var(--text-muted) !important;
-      border: 1px solid var(--border-subtle) !important;
-      cursor: not-allowed;
-      transform: none !important;
-    }
+  /* ---------- Daily bonus card ---------- */
+  .bonus-card{
+    background:linear-gradient(150deg, var(--teal-bg) 0%, #0C1B22 100%);
+    border:1px solid var(--teal-border);
+    border-radius:var(--radius-lg);
+    padding:16px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
 
-    .btn-full {
-      width: 100%;
-      padding: 12px 16px;
-      font-size: 13px;
-    }
+  .bonus-icon{
+    width:44px; height:44px;
+    border-radius:50%;
+    background:rgba(47,217,168,0.14);
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px;
+    flex-shrink:0;
+  }
 
-    /* Progress bar */
-    .progress-track {
-      width: 100%;
-      height: 7px;
-      background-color: var(--bg-surface-elevated);
-      border-radius: 999px;
-      overflow: hidden;
-      margin: 10px 0 14px 0;
-      border: 1px solid var(--border-subtle);
-    }
+  .bonus-body{ flex:1; min-width:0; }
 
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background-color: var(--accent-emerald);
-      border-radius: 999px;
-      transition: width 0.3s ease;
-    }
+  .bonus-title{
+    font-size:14.5px;
+    font-weight:700;
+    color:var(--text);
+  }
 
-    /* Tasks list */
-    .task-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 14px;
-      background-color: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 10px;
-      margin-bottom: 10px;
-    }
+  .bonus-sub{
+    font-size:11.5px;
+    color:var(--text-dim);
+    margin-top:2px;
+  }
 
-    .task-details {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+  .pill-btn{
+    background:var(--teal);
+    color:#052018;
+    font-size:12.5px;
+    font-weight:800;
+    padding:10px 16px;
+    border-radius:var(--radius-pill);
+    flex-shrink:0;
+    transition:opacity .15s ease, transform .1s ease;
+  }
 
-    .task-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
+  .pill-btn:active{ transform:scale(0.95); }
 
-    .task-desc {
-      font-size: 11px;
-      color: var(--text-secondary);
-    }
+  .pill-btn:disabled{
+    background:var(--surface-2);
+    color:var(--text-faint);
+    cursor:default;
+  }
 
-    /* Invite Tab */
-    .referral-box {
-      background-color: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      border-radius: 8px;
-      padding: 10px;
-      font-size: 11px;
-      color: var(--text-secondary);
-      word-break: break-all;
-      margin: 10px 0 14px 0;
-      font-family: monospace;
-    }
+  /* ---------- Watch & earn card ---------- */
+  .watch-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:16px;
+    position:relative;
+    overflow:hidden;
+  }
 
-    /* Wallet Tab */
-    .method-selector-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 14px;
-    }
+  .watch-card::before{
+    content:"";
+    position:absolute;
+    top:0; left:14px; right:14px;
+    height:2px;
+    border-radius:2px;
+    background:linear-gradient(90deg, var(--cyan), var(--teal));
+    opacity:0.85;
+  }
 
-    .method-chip {
-      background-color: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      border-radius: 8px;
-      padding: 10px 6px;
-      text-align: center;
-      cursor: pointer;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-secondary);
-      transition: all 0.15s ease;
-    }
+  .watch-top{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:14px;
+  }
 
-    .method-chip.active {
-      border-color: var(--accent-emerald);
-      background-color: var(--accent-emerald-dim);
-      color: var(--accent-emerald);
-    }
+  .watch-icon{
+    width:52px; height:52px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#5B7CFA,#3FA9F5);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
 
-    .form-group {
-      margin-bottom: 14px;
-    }
+  .watch-icon svg{
+    width:18px; height:18px;
+    fill:#fff;
+    margin-left:2px;
+  }
 
-    .form-label {
-      display: block;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
+  .watch-body{ flex:1; min-width:0; }
 
-    .form-input {
-      width: 100%;
-      background-color: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      border-radius: 8px;
-      padding: 11px 12px;
-      font-size: 13px;
-      color: var(--text-primary);
-      outline: none;
-      transition: border-color 0.15s ease;
-    }
+  .watch-title{
+    font-size:15px;
+    font-weight:800;
+    color:var(--text);
+  }
 
-    .form-input:focus {
-      border-color: var(--accent-emerald);
-    }
+  .watch-sub{
+    font-size:11.5px;
+    color:var(--text-dim);
+    margin-top:2px;
+  }
 
-    .form-input::placeholder {
-      color: var(--text-muted);
-    }
+  .reward-pill{
+    background:var(--teal-bg);
+    border:1px solid var(--teal-border);
+    color:var(--teal);
+    font-size:12px;
+    font-weight:800;
+    padding:8px 12px;
+    border-radius:var(--radius-pill);
+    flex-shrink:0;
+  }
 
-    .rules-callout {
-      background-color: var(--bg-surface);
-      border-left: 3px solid var(--border-highlight);
-      border-radius: 0 8px 8px 0;
-      padding: 10px 12px;
-      font-size: 11px;
-      color: var(--text-secondary);
-      margin-bottom: 14px;
-      line-height: 1.5;
-    }
+  .progress-track{
+    width:100%;
+    height:7px;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:var(--radius-pill);
+    overflow:hidden;
+    margin-bottom:8px;
+  }
 
-    /* Bottom Navigation */
-    nav.bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 440px;
-      height: calc(60px + var(--safe-area-bottom));
-      padding-bottom: var(--safe-area-bottom);
-      background-color: rgba(15, 18, 26, 0.96);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid var(--border-subtle);
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      z-index: 100;
-    }
+  .progress-fill{
+    height:100%;
+    background:linear-gradient(90deg, var(--cyan), var(--teal));
+    border-radius:var(--radius-pill);
+    transition:width .3s ease;
+  }
 
-    .nav-btn {
-      background: none;
-      border: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.6px;
-      text-transform: uppercase;
-      transition: color 0.15s ease;
-      padding: 6px 0;
-    }
+  .progress-meta{
+    display:flex;
+    justify-content:space-between;
+    font-size:11.5px;
+    color:var(--text-faint);
+    margin-bottom:14px;
+  }
 
-    .nav-btn svg {
-      width: 20px;
-      height: 20px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      transition: transform 0.15s ease;
-    }
+  .progress-meta .status{ color:var(--text-dim); }
 
-    .nav-btn.active {
-      color: var(--accent-emerald);
-    }
+  .btn-watch{
+    width:100%;
+    background:linear-gradient(135deg,#3FA9F5,#2C8AE0);
+    color:#fff;
+    font-size:14px;
+    font-weight:800;
+    padding:14px;
+    border-radius:var(--radius-md);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:opacity .15s ease, transform .1s ease;
+  }
 
-    .nav-btn.active svg {
-      transform: translateY(-1px);
-    }
+  .btn-watch:active{ transform:scale(0.98); }
 
-    /* Toast Notification Banner */
-    #toast {
-      position: fixed;
-      top: 64px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-10px);
-      width: calc(100% - 32px);
-      max-width: 400px;
-      background-color: #1e2638;
-      color: var(--text-primary);
-      border: 1px solid var(--border-highlight);
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 600;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
-      z-index: 999;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      text-align: center;
-    }
+  .btn-watch:disabled{
+    background:var(--surface-2);
+    color:var(--text-faint);
+    cursor:default;
+  }
 
-    #toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-      pointer-events: auto;
-    }
+  .btn-watch svg{
+    width:12px; height:12px;
+    fill:currentColor;
+  }
 
-    #toast.toast-danger {
-      border-color: rgba(244, 63, 94, 0.5);
-      background-color: #27141b;
-      color: #fda4af;
-    }
+  .hint-text{
+    font-size:11px;
+    color:var(--text-faint);
+    margin-top:10px;
+    line-height:1.5;
+    text-align:center;
+  }
 
-    #toast.toast-success {
-      border-color: rgba(16, 185, 129, 0.5);
-      background-color: #0c271e;
-      color: #6ee7b7;
-    }
-  </style>
+  /* ---------- Stats row ---------- */
+  .stats-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .stat-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+    padding:16px 14px;
+    text-align:center;
+  }
+
+  .stat-card .label{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.5px;
+    color:var(--text-faint);
+    margin-bottom:8px;
+  }
+
+  .stat-card .value{
+    font-size:22px;
+    font-weight:800;
+    color:var(--text);
+  }
+
+  .stat-card .value.teal{ color:var(--teal); }
+
+  .stat-card .unit{
+    font-size:11px;
+    color:var(--text-faint);
+    margin-top:4px;
+  }
+
+  /* ---------- Generic card (tasks/invite/wallet) ---------- */
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+    padding:14px;
+    margin-bottom:10px;
+  }
+
+  .card-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+
+  .card-title{
+    font-size:13.5px;
+    font-weight:700;
+    color:var(--text);
+  }
+
+  .card-sub{
+    font-size:11.5px;
+    color:var(--text-dim);
+    margin-top:2px;
+  }
+
+  .card-amount{
+    font-size:13px;
+    color:var(--teal);
+    font-weight:700;
+  }
+
+  /* ---------- Buttons (generic) ---------- */
+  .btn{
+    border-radius:var(--radius-sm);
+    padding:9px 16px;
+    font-size:12.5px;
+    font-weight:700;
+    transition:opacity .15s ease, transform .1s ease;
+    white-space:nowrap;
+  }
+
+  .btn:active{ transform:scale(0.96); }
+
+  .btn-primary{
+    background:var(--cyan);
+    color:#071726;
+  }
+
+  .btn-primary:disabled{
+    background:var(--surface-2);
+    color:var(--text-faint);
+    cursor:default;
+  }
+
+  .btn-outline{
+    background:transparent;
+    border:1px solid var(--border-strong);
+    color:var(--text);
+  }
+
+  .btn-block{
+    width:100%;
+    padding:13px 16px;
+    text-align:center;
+    font-size:13.5px;
+  }
+
+  /* ---------- Toast ---------- */
+  .toast{
+    position:fixed;
+    left:50%;
+    bottom:92px;
+    transform:translateX(-50%) translateY(8px);
+    background:var(--surface-2);
+    border:1px solid var(--border-strong);
+    color:var(--text);
+    padding:10px 16px;
+    border-radius:var(--radius-pill);
+    font-size:12.5px;
+    max-width:88%;
+    text-align:center;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease;
+    z-index:999;
+  }
+
+  .toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+  }
+
+  /* ---------- Invite page ---------- */
+  .invite-hero{
+    text-align:center;
+    padding:26px 10px;
+  }
+
+  .invite-count{
+    font-size:32px;
+    font-weight:800;
+    color:var(--teal);
+  }
+
+  .invite-count-label{
+    font-size:11.5px;
+    color:var(--text-dim);
+    margin-top:4px;
+  }
+
+  .link-box{
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:var(--radius-sm);
+    padding:10px 12px;
+    font-size:11.5px;
+    color:var(--text-dim);
+    word-break:break-all;
+    margin-bottom:10px;
+  }
+
+  .btn-row{ display:flex; gap:8px; }
+  .btn-row .btn{ flex:1; }
+
+  /* ---------- Wallet page ---------- */
+  .method-list{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-bottom:12px;
+  }
+
+  .method-option{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-sm);
+    padding:12px 14px;
+    font-size:13px;
+    color:var(--text-dim);
+  }
+
+  .method-option.selected{
+    border-color:var(--cyan);
+    color:var(--text);
+    background:var(--cyan-dim);
+  }
+
+  .method-radio{
+    width:16px; height:16px;
+    border-radius:50%;
+    border:1.5px solid var(--border-strong);
+    flex-shrink:0;
+    position:relative;
+  }
+
+  .method-option.selected .method-radio{ border-color:var(--cyan); }
+
+  .method-option.selected .method-radio::after{
+    content:"";
+    position:absolute;
+    inset:3px;
+    border-radius:50%;
+    background:var(--cyan);
+  }
+
+  .wallet-input{
+    width:100%;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:var(--radius-sm);
+    padding:11px 12px;
+    color:var(--text);
+    font-size:12.5px;
+    margin-bottom:10px;
+  }
+
+  .wallet-input::placeholder{ color:var(--text-faint); }
+
+  .error-text{
+    font-size:11.5px;
+    color:var(--red);
+    margin-top:6px;
+  }
+
+  .success-text{
+    font-size:11.5px;
+    color:var(--teal);
+    margin-top:6px;
+    line-height:1.5;
+  }
+
+  /* ---------- Tasks page ---------- */
+  .task-card{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+
+  /* ---------- Bottom nav ---------- */
+  .bottom-nav{
+    position:fixed;
+    left:0; right:0; bottom:0;
+    background:rgba(10,13,22,0.95);
+    backdrop-filter:blur(10px);
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-around;
+    padding:9px 6px calc(9px + env(safe-area-inset-bottom)) 6px;
+    z-index:100;
+  }
+
+  .nav-btn{
+    background:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+    padding:4px 10px;
+    color:var(--text-faint);
+    flex:1;
+    max-width:100px;
+  }
+
+  .nav-btn svg{
+    width:21px; height:21px;
+    stroke:var(--text-faint);
+    fill:none;
+    stroke-width:1.8;
+    transition:stroke .15s ease;
+  }
+
+  .nav-btn span{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.2px;
+  }
+
+  .nav-btn.active{ color:var(--cyan); }
+  .nav-btn.active svg{ stroke:var(--cyan); }
+</style>
 </head>
 <body>
-  <div id="app-container">
-    <!-- Header -->
-    <header class="app-header">
-      <div class="brand-title">
-        <span class="brand-dot"></span>
-        <span>MONEY FOLLOWS</span>
-      </div>
-      <div class="header-user-tag" id="header-user-badge">Telegram User</div>
-    </header>
 
-    <!-- Toast Notification Banner -->
-    <div id="toast" role="alert"></div>
+<div class="app">
 
-    <!-- MAIN CONTENT VIEWS -->
+  <div class="header">
+    <div class="brand">MONEY <span class="brand-follows">FOLLOWS</span></div>
+    <div class="brand-dot"></div>
+  </div>
 
-    <!-- 1. HOME VIEW -->
-    <main id="view-home" class="tab-view active">
-      <!-- Telegram User Details -->
-      <div class="user-info-grid">
-        <div class="user-info-cell">
-          <span class="user-info-label">Name</span>
-          <span class="user-info-value" id="profile-name">Telegram User</span>
+  <!-- ================= HOME PAGE ================= -->
+  <section class="page active" id="page-home">
+
+    <div class="balance-card">
+      <div class="balance-top">
+        <div>
+          <div class="balance-label">TOTAL BALANCE</div>
+          <div class="balance-value"><span class="sym">$</span><span id="homeBalance">0.00</span></div>
+          <div class="balance-sub">Available to withdraw</div>
         </div>
-        <div class="user-info-cell">
-          <span class="user-info-label">Username</span>
-          <span class="user-info-value" id="profile-username">Not available</span>
-        </div>
-        <div class="user-info-cell">
-          <span class="user-info-label">Telegram ID</span>
-          <span class="user-info-value" id="profile-id">Not available</span>
+        <div class="balance-user">
+          <div class="balance-user-name" id="userChipText">Telegram User</div>
+          <div class="balance-user-id" id="userIdText">ID: &mdash;</div>
+          <div class="balance-user-row">
+            <div class="avatar" id="userAvatar">MF</div>
+          </div>
         </div>
       </div>
 
-      <!-- Total Balance Card -->
-      <div class="balance-card">
-        <div class="balance-label">TOTAL BALANCE</div>
-        <div class="balance-amount" id="home-total-balance">$0.00</div>
+      <div class="quick-actions">
+        <button class="quick-btn" id="quickAdsBtn">
+          <svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg>
+          Ads
+        </button>
+        <button class="quick-btn" id="quickTasksBtn">
+          <svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>
+          Tasks
+        </button>
+        <button class="quick-btn" id="quickInviteBtn">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+          Invite
+        </button>
       </div>
+    </div>
 
-      <!-- Statistics Row -->
-      <div class="metrics-row">
-        <div class="metric-box">
-          <div class="metric-label">TOTAL EARNED</div>
-          <div class="metric-val" id="home-total-earned">$0.00</div>
-        </div>
-        <div class="metric-box">
-          <div class="metric-label">WATCHED TODAY</div>
-          <div class="metric-val" id="home-watched-today">0/20</div>
-        </div>
-        <div class="metric-box">
-          <div class="metric-label">TOTAL WATCHED</div>
-          <div class="metric-val" id="home-total-watched">0</div>
+    <section class="block">
+      <div class="section-header">
+        <div class="section-header-left">
+          <div class="section-dot" style="background:var(--cyan);"></div>
+          <div class="section-title">Daily Bonus</div>
         </div>
       </div>
-
-      <!-- Daily Bonus Card -->
       <div class="bonus-card">
-        <div class="bonus-left">
-          <span class="bonus-title">Daily Bonus</span>
-          <span class="bonus-amount-badge">+$0.10</span>
+        <div class="bonus-icon">🎁</div>
+        <div class="bonus-body">
+          <div class="bonus-title">Daily Bonus</div>
+          <div class="bonus-sub">Log in daily and get $0.10 free</div>
         </div>
-        <button type="button" class="btn btn-primary" id="btn-claim-bonus">CLAIM</button>
+        <button class="pill-btn" id="claimBonusBtn">+$0.10</button>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="section-header">
+        <div class="section-header-left">
+          <div class="section-dot"></div>
+          <div class="section-title">Watch &amp; Earn</div>
+        </div>
+        <div class="section-badge">Daily Limit: <span id="statWatchedToday">0/20</span></div>
       </div>
 
-      <!-- Watch & Earn Card -->
-      <div class="card" id="card-watch-earn">
-        <div class="card-header">
-          <span class="card-title-sm">WATCH & EARN</span>
-          <span style="font-size: 11px; font-weight: 700; color: var(--accent-emerald);">$0.15 per ad</span>
+      <div class="watch-card">
+        <div class="watch-top">
+          <div class="watch-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="watch-body">
+            <div class="watch-title">Watch Ad</div>
+            <div class="watch-sub">Complete video to earn instantly</div>
+          </div>
+          <div class="reward-pill">+$0.15</div>
         </div>
-        <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-secondary);">
-          <span>Daily Limit: 20 ads</span>
-          <span id="watch-progress-label">0/20</span>
-        </div>
+
         <div class="progress-track">
-          <div class="progress-fill" id="watch-progress-bar"></div>
+          <div class="progress-fill" id="watchProgressFill" style="width:0%;"></div>
         </div>
-        <button type="button" class="btn btn-secondary btn-full" id="btn-watch-ad">WATCH AD</button>
-      </div>
-    </main>
-
-    <!-- 2. TASKS VIEW -->
-    <section id="view-tasks" class="tab-view">
-      <div class="card-header" style="margin-bottom: 12px;">
-        <span class="card-title-sm">Available Tasks</span>
-      </div>
-
-      <div class="task-item">
-        <div class="task-details">
-          <span class="task-name">Daily Watch</span>
-          <span class="task-desc">Watch available ads today</span>
+        <div class="progress-meta">
+          <span class="status" id="watchStatusText">Ready to earn</span>
+          <span id="watchProgressText">0/20 today</span>
         </div>
-        <button type="button" class="btn btn-secondary" id="btn-task-open-watch">OPEN</button>
-      </div>
 
-      <div class="task-item">
-        <div class="task-details">
-          <span class="task-name">Daily Bonus</span>
-          <span class="task-desc">Claim your daily $0.10 bonus</span>
-        </div>
-        <button type="button" class="btn btn-primary" id="btn-task-claim-bonus">CLAIM</button>
+        <button class="btn-watch" id="watchAdBtn">
+          <svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg>
+          <span id="watchAdBtnLabel">Watch Ad</span>
+        </button>
+        <div class="hint-text" id="adProviderHint">Ad provider is not connected yet.</div>
       </div>
     </section>
 
-    <!-- 3. INVITE VIEW -->
-    <section id="view-invite" class="tab-view">
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title-sm">Invite &amp; Earn</span>
-        </div>
-        <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">
-          Share your referral link with friends. Verified invites will appear below.
-        </p>
-        <div style="display: flex; justify-content: space-between; align-items: center; background-color: var(--bg-surface-elevated); padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border-subtle); margin-bottom: 14px;">
-          <span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Verified invites</span>
-          <span style="font-size: 16px; font-weight: 800; color: var(--text-primary);" id="invite-verified-count">0</span>
-        </div>
-
-        <span class="form-label">Referral link</span>
-        <div class="referral-box" id="invite-referral-text">Generating link...</div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-          <button type="button" class="btn btn-primary" id="btn-invite-share">INVITE FRIENDS</button>
-          <button type="button" class="btn btn-secondary" id="btn-invite-copy">COPY REFERRAL LINK</button>
-        </div>
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="label">TOTAL WATCHED</div>
+        <div class="value" id="statTotalWatched">0</div>
+        <div class="unit">Ads</div>
       </div>
-
-      <div class="rules-callout">
-        Invites are verified directly by the Telegram Bot backend. Clicking or copying the referral link does not increment verified referrals.
+      <div class="stat-card">
+        <div class="label">TOTAL EARNED</div>
+        <div class="value teal" id="statTotalEarned">$0.00</div>
       </div>
-    </section>
+    </div>
 
-    <!-- 4. WALLET VIEW -->
-    <section id="view-wallet" class="tab-view">
-      <!-- Balance Card -->
-      <div class="balance-card">
-        <div class="balance-label">AVAILABLE BALANCE</div>
-        <div class="balance-amount" id="wallet-available-balance">$0.00</div>
+  </section>
+
+  <!-- ================= TASKS PAGE ================= -->
+  <section class="page" id="page-tasks">
+    <div class="section-header">
+      <div class="section-header-left">
+        <div class="section-dot"></div>
+        <div class="section-title">Tasks</div>
       </div>
+    </div>
 
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title-sm">Withdrawal Methods</span>
-        </div>
-
-        <div class="method-selector-grid">
-          <div class="method-chip" data-method="USDT TRC20" id="method-usdt">USDT TRC20</div>
-          <div class="method-chip" data-method="PayPal" id="method-paypal">PayPal</div>
-          <div class="method-chip" data-method="UPI" id="method-upi">UPI</div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="wallet-input-details" id="wallet-input-label">Account Details</label>
-          <input type="text" id="wallet-input-details" class="form-input" placeholder="Select a withdrawal method above">
-        </div>
-
-        <button type="button" class="btn btn-primary btn-full" id="btn-wallet-withdraw">WITHDRAW</button>
+    <div class="card task-card">
+      <div>
+        <div class="card-title">Daily Watch</div>
+        <div class="card-sub">Watch available ads today</div>
       </div>
+      <button class="btn btn-outline" id="taskOpenWatchBtn">OPEN</button>
+    </div>
 
-      <div class="rules-callout">
-        Minimum withdrawal amount is $5.00. A minimum of 3 verified invites is required prior to submitting a withdrawal request.
+    <div class="card task-card">
+      <div>
+        <div class="card-title">Daily Bonus</div>
+        <div class="card-sub">Claim your daily $0.10 bonus</div>
       </div>
-    </section>
+      <button class="btn btn-primary" id="taskClaimBonusBtn">CLAIM</button>
+    </div>
 
-    <!-- Fixed Bottom Navigation -->
-    <nav class="bottom-nav">
-      <button type="button" class="nav-btn active" id="nav-home" data-target="view-home">
-       
+    <div class="card task-card">
+      <div>
+        <div class="card-title">Invite Friends</div>
+        <div class="card-sub">Earn from verified invites</div>
+      </div>
+      <button class="btn btn-outline" id="taskOpenInviteBtn">OPEN</button>
+    </div>
+  </section>
+
+  <!-- ================= INVITE PAGE ================= -->
+  <section class="page" id="page-invite">
+    <div class="section-header">
+      <div class="section-header-left">
+        <div class="section-dot"></div>
+        <div class="section-title">Invite &amp; Earn</div>
+      </div>
+    </div>
+
+    <div class="card invite-hero">
+      <div class="invite-count" id="inviteCount">0</div>
+      <div class="invite-count-label">Verified invites</div>
+    </div>
+
+    <div class="card">
+      <div class="card-sub" style="margin-bottom:8px;">Your referral link</div>
+      <div class="link-box" id="referralLink">https://t.me/moneyisfollows_bot?start=ref_guest</div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="inviteFriendsBtn">INVITE FRIENDS</button>
+        <button class="btn btn-outline" id="copyReferralBtn">COPY LINK</button>
+    
