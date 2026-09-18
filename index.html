@@ -1026,73 +1026,7 @@ button{
       </div>
 
 
-      <input
-        class="withdraw-input"
-        id="withdrawAmount"
-        type="number"
-        min="5"
-        step="0.01"
-        placeholder="Withdrawal amount (minimum $5)"
-      >
 
-
-      <input
-        class="withdraw-input"
-        id="withdrawAddress"
-        type="text"
-        placeholder="Enter payout address / UPI ID / PayPal"
-      >
-
-
-      <button class="withdraw-btn" id="withdrawBtn">
-        Request Withdrawal
-      </button>
-
-
-      <div class="message" id="withdrawMessage"></div>
-
-    </div>
-
-  </section>
-
-</div>
-
-
-<!-- BOTTOM NAV -->
-
-<nav class="bottom-nav">
-
-  <div class="nav-inner">
-
-    <button class="nav-btn active" data-page="home">
-      <span class="nav-icon">⌂</span>
-      <span>HOME</span>
-    </button>
-
-    <button class="nav-btn" data-page="tasks">
-      <span class="nav-icon">✓</span>
-      <span>TASKS</span>
-    </button>
-
-    <button class="nav-btn" data-page="invite">
-      <span class="nav-icon">♟</span>
-      <span>INVITE</span>
-    </button>
-
-    <button class="nav-btn" data-page="wallet">
-      <span class="nav-icon">▣</span>
-      <span>WALLET</span>
-    </button>
-
-  </div>
-
-</nav>
-
-
-<div class="toast" id="toast"></div>
-
-
-<script>
 (function(){
 
   "use strict";
@@ -1166,9 +1100,428 @@ button{
     }
 
   }
+<script>
+(function () {
+  "use strict";
 
+  var state = {
+    balance: 0,
+    totalEarned: 0,
+    totalWatched: 0,
+    todayWatched: 0,
+    lastWatchDate: "",
+    lastBonusDate: "",
+    invites: 0
+  };
 
-  function copyDefaultState(){
+  var STORAGE_KEY = "moneyFollowsState";
+
+  function $(id) {
+    return document.getElementById(id);
+  }
+
+  function today() {
+    var d = new Date();
+    return d.getFullYear() + "-" +
+      String(d.getMonth() + 1).padStart(2, "0") + "-" +
+      String(d.getDate()).padStart(2, "0");
+  }
+
+  function loadState() {
+    try {
+      var saved = localStorage.getItem(STORAGE_KEY);
+
+      if (saved) {
+        var data = JSON.parse(saved);
+
+        if (data && typeof data === "object") {
+          state.balance = Number(data.balance) || 0;
+          state.totalEarned = Number(data.totalEarned) || 0;
+          state.totalWatched = Number(data.totalWatched) || 0;
+          state.todayWatched = Number(data.todayWatched) || 0;
+          state.lastWatchDate = data.lastWatchDate || "";
+          state.lastBonusDate = data.lastBonusDate || "";
+          state.invites = Number(data.invites) || 0;
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+
+    if (state.lastWatchDate !== today()) {
+      state.todayWatched = 0;
+      state.lastWatchDate = today();
+      saveState();
+    }
+  }
+
+  function saveState() {
+    try {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(state)
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  function updateUI() {
+    $("balance").textContent = state.balance.toFixed(2);
+    $("totalEarned").textContent = state.totalEarned.toFixed(2);
+    $("walletBalance").textContent = state.balance.toFixed(2);
+
+    $("totalWatched").textContent =
+      Math.floor(state.totalWatched);
+
+    $("watchedToday").textContent =
+      Math.floor(state.todayWatched);
+
+    $("limitText").textContent =
+      Math.floor(state.todayWatched) + "/20";
+
+    $("inviteCount").textContent =
+      Math.floor(state.invites);
+
+    $("progressFill").style.width =
+      Math.min(100, state.todayWatched * 5) + "%";
+
+    if (state.lastBonusDate === today()) {
+      $("bonusBtn").querySelector(".bonus-title").textContent =
+        "Daily Bonus Claimed";
+
+      $("bonusBtn").querySelector(".bonus-sub").textContent =
+        "Come back tomorrow for another bonus";
+
+      $("bonusBtn").querySelector(".reward-pill").textContent =
+        "CLAIMED";
+    }
+  }
+
+  function openPage(name) {
+
+    var pages = {
+      home: $("homePage"),
+      tasks: $("tasksPage"),
+      invite: $("invitePage"),
+      wallet: $("walletPage")
+    };
+
+    Object.keys(pages).forEach(function (key) {
+      pages[key].classList.remove("active");
+    });
+
+    if (pages[name]) {
+      pages[name].classList.add("active");
+    }
+
+    document.querySelectorAll(".nav-btn").forEach(function (btn) {
+      btn.classList.remove("active");
+
+      if (btn.getAttribute("data-page") === name) {
+        btn.classList.add("active");
+      }
+    });
+
+    window.scrollTo(0, 0);
+  }
+
+  function toast(text) {
+    var box = $("toast");
+
+    box.textContent = text;
+    box.classList.add("show");
+
+    clearTimeout(window.moneyToast);
+
+    window.moneyToast = setTimeout(function () {
+      box.classList.remove("show");
+    }, 2200);
+  }
+
+  /* NAVIGATION */
+
+  document.querySelectorAll(".nav-btn").forEach(function (btn) {
+
+    btn.addEventListener("click", function () {
+      openPage(btn.getAttribute("data-page"));
+    });
+
+  });
+
+  /* QUICK BUTTONS */
+
+  $("quickTasks").addEventListener("click", function () {
+    openPage("tasks");
+  });
+
+  $("quickInvite").addEventListener("click", function () {
+    openPage("invite");
+  });
+
+  $("quickAds").addEventListener("click", function () {
+    openPage("home");
+
+    setTimeout(function () {
+      $("watchBtn").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    }, 100);
+  });
+
+  /* DAILY BONUS */
+
+  $("bonusBtn").addEventListener("click", function () {
+
+    if (state.lastBonusDate === today()) {
+      toast("Daily bonus already claimed today.");
+      return;
+    }
+
+    state.balance += 0.10;
+    state.totalEarned += 0.10;
+    state.lastBonusDate = today();
+
+    saveState();
+    updateUI();
+
+    toast("$0.10 Daily Bonus Claimed!");
+  });
+
+  /* WATCH AD */
+
+  function watchAd() {
+
+    if (state.todayWatched >= 20) {
+      toast("Daily limit reached: 20/20");
+      return;
+    }
+
+    toast("Ad provider is not connected yet.");
+
+  }
+
+  $("watchBtn").addEventListener(
+    "click",
+    watchAd
+  );
+
+  $("playBtn").addEventListener(
+    "click",
+    watchAd
+  );
+
+  /* REFERRAL */
+
+  function referralLink() {
+
+    var id = "USER";
+
+    try {
+      if (
+        window.Telegram &&
+        Telegram.WebApp &&
+        Telegram.WebApp.initDataUnsafe &&
+        Telegram.WebApp.initDataUnsafe.user
+      ) {
+        id =
+          Telegram.WebApp.initDataUnsafe.user.id;
+      }
+    } catch (e) {}
+
+    return "https://t.me/moneyisfollows_bot?start=ref_" + id;
+  }
+
+  $("refLink").value = referralLink();
+
+  $("copyBtn").addEventListener("click", function () {
+
+    var input = $("refLink");
+
+    input.select();
+    input.setSelectionRange(0, 99999);
+
+    try {
+      document.execCommand("copy");
+      toast("Referral link copied!");
+    } catch (e) {
+      toast("Please copy the link manually.");
+    }
+
+  });
+
+  $("shareBtn").addEventListener("click", function () {
+
+    var link = referralLink();
+
+    try {
+
+      if (
+        window.Telegram &&
+        Telegram.WebApp &&
+        Telegram.WebApp.openTelegramLink
+      ) {
+
+        Telegram.WebApp.openTelegramLink(
+          "https://t.me/share/url?url=" +
+          encodeURIComponent(link)
+        );
+
+        return;
+      }
+
+    } catch (e) {}
+
+    toast("Copy the referral link and share it.");
+  });
+
+  /* WALLET METHODS */
+
+  document.querySelectorAll(".method").forEach(function (method) {
+
+    method.addEventListener("click", function () {
+
+      document.querySelectorAll(".method")
+        .forEach(function (m) {
+          m.classList.remove("selected");
+        });
+
+      method.classList.add("selected");
+
+      toast(
+        method.getAttribute("data-method") +
+        " selected"
+      );
+    });
+
+  });
+
+  /* WITHDRAW */
+
+  $("withdrawBtn").addEventListener("click", function () {
+
+    var amount =
+      Number($("withdrawAmount").value);
+
+    var address =
+      $("withdrawAddress").value.trim();
+
+    var message =
+      $("withdrawMessage");
+
+    message.className = "message";
+
+    if (!amount || amount <= 0) {
+      message.textContent =
+        "Please enter a valid withdrawal amount.";
+      message.classList.add("show");
+      return;
+    }
+
+    if (amount < 5) {
+      message.textContent =
+        "Minimum $5 required to withdraw! ❗";
+      message.classList.add("show");
+      return;
+    }
+
+    if (amount > state.balance) {
+      message.textContent =
+        "Insufficient balance.";
+      message.classList.add("show");
+      return;
+    }
+
+    if (state.invites < 3) {
+
+      var needed =
+        3 - Math.floor(state.invites);
+
+      message.textContent =
+        "You need " +
+        needed +
+        " more successful invite" +
+        (needed === 1 ? "" : "s") +
+        " before you can withdraw.";
+
+      message.classList.add("show");
+      return;
+    }
+
+    if (!address) {
+      message.textContent =
+        "Please enter your payout address.";
+      message.classList.add("show");
+      return;
+    }
+
+    message.textContent =
+      "Withdrawal request received. Secure payout processing will be connected to the backend.";
+
+    message.classList.add(
+      "show",
+      "success"
+    );
+
+  });
+
+  /* TELEGRAM USER */
+
+  try {
+
+    if (
+      window.Telegram &&
+      Telegram.WebApp
+    ) {
+
+      Telegram.WebApp.ready();
+      Telegram.WebApp.expand();
+
+      var user =
+        Telegram.WebApp.initDataUnsafe.user;
+
+      if (user) {
+
+        var name =
+          user.first_name || "Telegram User";
+
+        if (user.last_name) {
+          name += " " + user.last_name;
+        }
+
+        $("telegramName").textContent =
+          name;
+
+        $("telegramId").textContent =
+          "ID: " + user.id;
+
+        var initials =
+          (user.first_name || "M").charAt(0);
+
+        if (user.last_name) {
+          initials +=
+            user.last_name.charAt(0);
+        }
+
+        $("avatar").textContent =
+          initials.toUpperCase();
+      }
+    }
+
+  } catch (e) {
+    console.log(e);
+  }
+
+  /* START */
+
+  loadState();
+  updateUI();
+
+})();
+</script>
+          
+function copyDefaultState(){
 
     return {
       balance:0,
