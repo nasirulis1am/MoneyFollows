@@ -20,55 +20,55 @@ html,body{
   padding:0;
   width:100%;
   min-height:100%;
-  background:#050505;
-  color:#fff;
   font-family:Arial,Helvetica,sans-serif;
+  background:#030912;
+  color:#eaf3ff;
 }
 
 body{
-  padding-bottom:78px;
-}
-
-button,
-input,
-select{
-  font:inherit;
+  padding-bottom:82px;
 }
 
 button{
+  font-family:inherit;
   border:0;
+  outline:0;
   cursor:pointer;
 }
 
 .app{
   width:100%;
-  max-width:430px;
+  max-width:520px;
   margin:auto;
-  padding:14px 14px 20px;
+  padding:16px 14px 20px;
 }
 
 /* HEADER */
 
 .header{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  margin-bottom:15px;
+  align-items:center;
+  margin-bottom:14px;
 }
 
-.brand{
+.logo{
   font-size:17px;
   font-weight:800;
-  letter-spacing:.5px;
+  letter-spacing:-.4px;
 }
 
-.user-mini{
-  font-size:11px;
-  color:#8c8c8c;
-  max-width:130px;
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
+.logo span{
+  color:#ffd21c;
+}
+
+.header-dot{
+  width:7px;
+  height:7px;
+  background:#19e6b0;
+  border-radius:50%;
+  display:inline-block;
+  margin-left:5px;
 }
 
 /* PAGES */
@@ -81,130 +81,167 @@ button{
   display:block;
 }
 
-/* BALANCE */
+/* BALANCE CARD */
 
 .balance-card{
-  background:linear-gradient(145deg,#171717,#101010);
-  border:1px solid #242424;
-  border-radius:17px;
-  padding:18px;
-  margin-bottom:12px;
+  background:linear-gradient(135deg,#0b2437,#091523);
+  border:1px solid #16354c;
+  border-radius:20px;
+  padding:17px;
+  margin-bottom:18px;
 }
 
-.balance-label{
-  color:#929292;
-  font-size:11px;
-  margin-bottom:6px;
+.balance-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.small-label{
+  font-size:9px;
+  color:#71869a;
+  text-transform:uppercase;
+  letter-spacing:1.2px;
+  font-weight:700;
 }
 
 .balance{
-  font-size:31px;
+  font-size:29px;
+  line-height:1;
   font-weight:800;
-  letter-spacing:-1px;
+  margin-top:4px;
 }
 
-.stats{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-  margin-top:15px;
+.balance .dollar{
+  color:#18ddb0;
 }
 
-.stat{
-  background:#0b0b0b;
-  border:1px solid #202020;
-  border-radius:12px;
-  padding:10px;
-}
-
-.stat-label{
-  color:#777;
+.available{
   font-size:10px;
-  margin-bottom:4px;
+  color:#8ea0b2;
+  margin-top:6px;
 }
 
-.stat-value{
-  font-size:14px;
-  font-weight:700;
-}
-
-/* CARDS */
-
-.card{
-  background:#111;
-  border:1px solid #222;
-  border-radius:15px;
-  padding:14px;
-  margin-bottom:11px;
-}
-
-.card-title{
-  font-size:14px;
-  font-weight:700;
-  margin-bottom:5px;
-}
-
-.card-sub{
-  font-size:10px;
-  color:#777;
-  line-height:1.4;
-}
-
-/* DAILY BONUS */
-
-.bonus-card{
+.user-box{
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  gap:12px;
+  gap:8px;
+  text-align:right;
 }
 
-.bonus-left{
-  min-width:0;
+.user-info{
+  font-size:10px;
+  color:#e6edf5;
 }
 
-.bonus-amount{
-  font-size:20px;
-  font-weight:800;
+.user-id{
+  display:block;
+  font-size:8px;
+  color:#687b8d;
   margin-top:3px;
 }
 
-/* BUTTON */
-
-.primary-btn{
-  width:100%;
-  background:#fff;
-  color:#050505;
-  padding:12px 14px;
-  border-radius:11px;
+.avatar{
+  width:39px;
+  height:39px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   font-size:12px;
   font-weight:800;
-  margin-top:11px;
+  background:linear-gradient(135deg,#24d9d0,#8c39ff);
+  border:2px solid rgba(255,255,255,.15);
 }
 
-.primary-btn:active{
-  transform:scale(.98);
+.quick-actions{
+  display:flex;
+  gap:7px;
+  margin-top:15px;
 }
 
-.small-btn{
-  background:#fff;
-  color:#050505;
-  padding:9px 12px;
-  border-radius:9px;
+.quick-btn{
+  flex:0 0 auto;
+  padding:7px 10px;
+  border-radius:12px;
+  background:#0a1c2e;
+  color:#8db4d5;
+  border:1px solid #183b57;
+  font-size:9px;
+}
+
+/* SECTION */
+
+.section-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:17px;
+  font-weight:750;
+  margin:17px 0 10px;
+}
+
+.section-title::before{
+  content:"";
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#20c8ff;
+  flex-shrink:0;
+}
+
+/* BONUS */
+
+.bonus-card{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:13px;
+  background:linear-gradient(100deg,#07352f,#0b2228);
+  border:1px solid #197d72;
+  border-radius:17px;
+  color:white;
+  text-align:left;
+}
+
+.bonus-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.bonus-icon{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:#08b979;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:17px;
+}
+
+.bonus-title{
+  font-size:12px;
+  font-weight:700;
+}
+
+.bonus-sub{
+  font-size:9px;
+  color:#839ca1;
+  margin-top:3px;
+}
+
+.reward-pill{
+  background:#16c69b;
+  color:white;
+  padding:8px 10px;
+  border-radius:15px;
   font-size:10px;
   font-weight:800;
   white-space:nowrap;
-}
-
-.dark-btn{
-  width:100%;
-  background:#181818;
-  color:#fff;
-  border:1px solid #292929;
-  padding:11px;
-  border-radius:10px;
-  font-size:11px;
-  font-weight:700;
 }
 
 /* WATCH */
@@ -215,235 +252,357 @@ button{
   justify-content:space-between;
 }
 
-.watch-reward{
-  font-size:20px;
+.limit{
+  font-size:8px;
+  color:#35d9b7;
+  border:1px solid #267f73;
+  padding:5px 8px;
+  border-radius:12px;
+}
+
+.watch-card{
+  position:relative;
+  background:#101b2a;
+  border:1px solid #1e344c;
+  border-radius:20px;
+  padding:18px;
+  overflow:hidden;
+}
+
+.watch-card::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:3px;
+  background:linear-gradient(90deg,#22b9ff,#24d9b0);
+}
+
+.watch-main{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.play{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  flex-shrink:0;
+  background:linear-gradient(135deg,#4d9ef8,#5a43e8);
+  color:white;
+  font-size:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding-left:4px;
+}
+
+.watch-title{
+  font-size:17px;
   font-weight:800;
 }
 
-.watch-meta{
-  color:#777;
+.watch-sub{
   font-size:10px;
-  margin-top:3px;
+  color:#8294a8;
+  margin-top:5px;
 }
 
-.progress-wrap{
-  margin-top:14px;
+.progress-area{
+  margin-top:16px;
 }
 
-.progress-top{
-  display:flex;
-  justify-content:space-between;
-  color:#777;
-  font-size:10px;
-  margin-bottom:6px;
-}
-
-.progress{
+.progress-bar{
+  height:6px;
   width:100%;
-  height:7px;
-  background:#242424;
+  background:#202d3e;
   border-radius:10px;
   overflow:hidden;
 }
 
-.progress-bar{
-  width:0%;
+.progress-fill{
   height:100%;
-  background:#fff;
+  width:0%;
+  background:linear-gradient(90deg,#20b9ff,#19d9ae);
+  transition:width:.25s ease;
+}
+
+.progress-text{
+  display:flex;
+  justify-content:space-between;
+  margin-top:7px;
+  font-size:9px;
+  color:#8192a4;
+}
+
+.watch-btn{
+  width:100%;
+  margin-top:14px;
+  padding:11px;
   border-radius:10px;
-  transition:.2s;
+  background:linear-gradient(90deg,#159ee8,#168fe7);
+  color:white;
+  font-size:11px;
+  font-weight:800;
+  box-shadow:0 7px 18px rgba(20,150,230,.16);
+}
+
+.watch-btn:active,
+.bonus-card:active,
+.withdraw-btn:active,
+.method:active{
+  transform:scale(.98);
+}
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:14px;
+}
+
+.stat{
+  background:#101b2a;
+  border:1px solid #1a2b3f;
+  border-radius:17px;
+  padding:15px 10px;
+  text-align:center;
+}
+
+.stat-label{
+  font-size:8px;
+  color:#73879b;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+.stat-value{
+  font-size:21px;
+  font-weight:800;
+  margin-top:6px;
+}
+
+.stat-value.green{
+  color:#1bd6a7;
+}
+
+.stat-unit{
+  font-size:9px;
+  color:#7e91a5;
+}
+
+/* GENERAL CARDS */
+
+.card{
+  background:#0e1927;
+  border:1px solid #1a2b3f;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:12px;
+}
+
+.card-title{
+  font-size:14px;
+  font-weight:750;
+}
+
+.card-sub{
+  color:#7e91a5;
+  font-size:10px;
+  margin-top:5px;
+  line-height:1.5;
 }
 
 /* TASKS */
 
 .task{
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   gap:10px;
-  background:#111;
-  border:1px solid #222;
-  border-radius:13px;
-  padding:13px;
-  margin-bottom:9px;
 }
 
-.task-info{
-  min-width:0;
+.task + .task{
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px solid #19293a;
 }
 
-.task-title{
-  font-size:12px;
-  font-weight:700;
-}
-
-.task-desc{
-  color:#777;
-  font-size:9px;
-  margin-top:3px;
+.task-reward{
+  font-size:10px;
+  color:#19d6a8;
+  font-weight:800;
 }
 
 /* INVITE */
 
-.invite-box{
-  text-align:center;
-  padding:16px;
-}
-
-.invite-count{
-  font-size:28px;
-  font-weight:800;
-}
-
-.invite-label{
-  color:#777;
-  font-size:10px;
-  margin-top:3px;
-}
-
 .ref-box{
-  background:#080808;
-  border:1px solid #222;
+  display:flex;
+  gap:7px;
+  margin-top:12px;
+}
+
+.ref-input{
+  flex:1;
+  min-width:0;
+  background:#08121e;
+  color:#9cb0c3;
+  border:1px solid #1d3349;
   border-radius:10px;
   padding:10px;
-  margin-top:13px;
-  word-break:break-all;
-  color:#aaa;
   font-size:9px;
-  line-height:1.4;
+}
+
+.copy-btn{
+  padding:0 12px;
+  border-radius:10px;
+  background:#159fe8;
+  color:white;
+  font-size:9px;
+  font-weight:700;
+}
+
+.invite-btn{
+  width:100%;
+  margin-top:10px;
+  padding:11px;
+  background:#172b42;
+  color:#b9d7ee;
+  border:1px solid #21445f;
+  border-radius:10px;
+  font-size:10px;
+  font-weight:700;
 }
 
 /* WALLET */
 
-.wallet-method{
+.wallet-balance{
+  text-align:center;
+  padding:10px 0 16px;
+}
+
+.wallet-balance-value{
+  font-size:28px;
+  font-weight:800;
+  color:#19d6a8;
+}
+
+.methods{
+  display:grid;
+  gap:8px;
+  margin-top:10px;
+}
+
+.method{
   width:100%;
   text-align:left;
-  background:#111;
-  color:#fff;
-  border:1px solid #252525;
+  padding:12px;
   border-radius:11px;
-  padding:12px;
-  margin-bottom:8px;
+  background:#091522;
+  border:1px solid #1c3146;
+  color:#b6c9db;
+  font-size:10px;
 }
 
-.wallet-method.active{
-  border-color:#fff;
+.method.selected{
+  border-color:#1bc7a2;
+  background:#09251f;
+  color:#ffffff;
 }
 
-.method-title{
-  font-size:12px;
-  font-weight:700;
-}
-
-.method-sub{
-  color:#777;
-  font-size:9px;
-  margin-top:3px;
-}
-
-.field{
+.withdraw-input{
   width:100%;
-  background:#0a0a0a;
-  color:#fff;
-  border:1px solid #252525;
+  margin-top:12px;
+  padding:11px;
+  background:#08121e;
+  border:1px solid #1d3349;
   border-radius:10px;
-  padding:12px;
-  outline:none;
-  font-size:11px;
-  margin-top:9px;
+  color:white;
+  font-size:12px;
 }
 
-.field:focus{
-  border-color:#666;
+.withdraw-btn{
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  border-radius:10px;
+  background:linear-gradient(90deg,#13bf9a,#12a982);
+  color:white;
+  font-size:11px;
+  font-weight:800;
 }
 
 .message{
   display:none;
+  margin-top:10px;
   padding:10px;
-  border-radius:10px;
+  border-radius:9px;
+  background:#29151a;
+  border:1px solid #6e2932;
+  color:#ff6975;
   font-size:10px;
   line-height:1.4;
-  margin-top:10px;
 }
 
 .message.show{
   display:block;
 }
 
-.message.error{
-  background:#2a0c0c;
-  color:#ff7373;
-  border:1px solid #4b1717;
-}
-
-.message.success{
-  background:#0d2515;
-  color:#7cff9a;
-  border:1px solid #173f22;
-}
-
-.message.info{
-  background:#111;
-  color:#aaa;
-  border:1px solid #252525;
-}
-
-/* PROFILE */
-
-.profile-row{
-  display:flex;
-  justify-content:space-between;
-  padding:9px 0;
-  border-bottom:1px solid #1e1e1e;
-  font-size:11px;
-}
-
-.profile-row:last-child{
-  border-bottom:0;
-}
-
-.profile-key{
-  color:#777;
-}
-
-.profile-value{
-  max-width:200px;
-  text-align:right;
-  overflow:hidden;
-  text-overflow:ellipsis;
+.success{
+  background:#08251e;
+  border-color:#176a57;
+  color:#43ddb7;
 }
 
 /* BOTTOM NAV */
 
 .bottom-nav{
   position:fixed;
-  left:50%;
-  bottom:9px;
-  transform:translateX(-50%);
-  width:calc(100% - 20px);
-  max-width:410px;
-  background:#101010;
-  border:1px solid #252525;
-  border-radius:17px;
-  padding:7px;
+  bottom:0;
+  left:0;
+  right:0;
+  height:70px;
+  background:rgba(5,13,23,.97);
+  border-top:1px solid #17283a;
+  display:flex;
+  justify-content:center;
+  z-index:100;
+}
+
+.nav-inner{
+  width:100%;
+  max-width:520px;
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:4px;
-  z-index:100;
 }
 
 .nav-btn{
   background:transparent;
-  color:#666;
-  padding:8px 4px;
-  border-radius:11px;
-  font-size:9px;
+  color:#64798d;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:4px;
+  font-size:8px;
   font-weight:700;
 }
 
+.nav-icon{
+  font-size:17px;
+  line-height:1;
+}
+
 .nav-btn.active{
-  background:#fff;
-  color:#050505;
+  color:#20b7f4;
+}
+
+.nav-btn.active .nav-icon{
+  color:#20b7f4;
 }
 
 /* TOAST */
@@ -451,39 +610,49 @@ button{
 .toast{
   position:fixed;
   left:50%;
-  bottom:84px;
-  transform:translateX(-50%);
-  width:calc(100% - 40px);
-  max-width:380px;
-  background:#181818;
-  border:1px solid #303030;
-  color:#fff;
-  border-radius:11px;
-  padding:11px 13px;
-  text-align:center;
+  bottom:82px;
+  transform:translateX(-50%) translateY(10px);
+  background:#152536;
+  border:1px solid #29445d;
+  color:#dcecff;
+  padding:10px 14px;
+  border-radius:10px;
   font-size:10px;
-  display:none;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s;
   z-index:200;
+  max-width:90%;
+  text-align:center;
 }
 
 .toast.show{
-  display:block;
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
 }
 
-/* MOBILE */
+@media(max-width:360px){
 
-@media(max-width:340px){
   .app{
-    padding-left:10px;
-    padding-right:10px;
+    padding-left:11px;
+    padding-right:11px;
   }
 
   .balance{
-    font-size:27px;
+    font-size:26px;
   }
 
-  .card{
-    padding:12px;
+  .play{
+    width:62px;
+    height:62px;
+  }
+
+  .watch-title{
+    font-size:15px;
+  }
+
+  .section-title{
+    font-size:16px;
   }
 }
 </style>
@@ -493,37 +662,59 @@ button{
 
 <div class="app">
 
+  <!-- HEADER -->
   <div class="header">
-    <div class="brand">MONEY FOLLOWS</div>
-    <div class="user-mini" id="headerUser">Telegram User</div>
+    <div class="logo">
+      MONEY <span>FOLLOWS</span>
+      <span class="header-dot"></span>
+    </div>
   </div>
 
 
-  <!-- ================= HOME ================= -->
-
+  <!-- HOME -->
   <section id="homePage" class="page active">
 
     <div class="balance-card">
 
-      <div class="balance-label">TOTAL BALANCE</div>
+      <div class="balance-top">
 
-      <div class="balance">
-        $<span id="balance">0.00</span>
+        <div>
+          <div class="small-label">Total Balance</div>
+
+          <div class="balance">
+            <span class="dollar">$</span><span id="balance">0.00</span>
+          </div>
+
+          <div class="available">Available to withdraw</div>
+        </div>
+
+        <div class="user-box">
+
+          <div class="user-info">
+            <strong id="telegramName">Telegram User</strong>
+            <span class="user-id" id="telegramId">ID: —</span>
+          </div>
+
+          <div class="avatar" id="avatar">MF</div>
+
+        </div>
+
       </div>
 
-      <div class="stats">
 
-        <div class="stat">
-          <div class="stat-label">TOTAL EARNED</div>
-          <div class="stat-value">$<span id="totalEarned">0.00</span></div>
-        </div>
+      <div class="quick-actions">
 
-        <div class="stat">
-          <div class="stat-label">WATCHED TODAY</div>
-          <div class="stat-value">
-            <span id="todayWatched">0</span>/20
-          </div>
-        </div>
+        <button class="quick-btn" id="quickAds">
+          ▶ Ads
+        </button>
+
+        <button class="quick-btn" id="quickTasks">
+          ✓ Tasks
+        </button>
+
+        <button class="quick-btn" id="quickInvite">
+          👥 Invite
+        </button>
 
       </div>
 
@@ -532,96 +723,127 @@ button{
 
     <!-- DAILY BONUS -->
 
-    <div class="card bonus-card">
+    <div class="section-title">
+      Daily Bonus
+    </div>
+
+    <button class="bonus-card" id="bonusBtn">
 
       <div class="bonus-left">
-        <div class="card-title">Daily Bonus</div>
-        <div class="card-sub">
-          Claim once every day
+
+        <div class="bonus-icon">
+          🎁
         </div>
-        <div class="bonus-amount">$0.10</div>
+
+        <div>
+          <div class="bonus-title">
+            Daily Bonus
+          </div>
+
+          <div class="bonus-sub">
+            Log in daily and get $0.10 free
+          </div>
+        </div>
+
       </div>
 
-      <button
-        type="button"
-        class="small-btn"
-        id="bonusBtn">
-        CLAIM
-      </button>
+      <div class="reward-pill">
+        +$0.10
+      </div>
 
-    </div>
+    </button>
 
 
     <!-- WATCH & EARN -->
 
-    <div class="card">
+    <div class="section-title watch-head">
 
-      <div class="watch-head">
+      <span>Watch &amp; Earn</span>
+
+      <span class="limit">
+        Daily Limit: <span id="limitText">0/20</span>
+      </span>
+
+    </div>
+
+
+    <div class="watch-card">
+
+      <div class="watch-main">
+
+        <button class="play" id="playBtn" aria-label="Watch Ad">
+          ▶
+        </button>
 
         <div>
-          <div class="card-title">Watch & Earn</div>
+          <div class="watch-title">
+            Watch Ad
+          </div>
 
-          <div class="watch-meta">
-            Earn $0.15 per ad
+          <div class="watch-sub">
+            Complete video to earn instantly
           </div>
         </div>
 
-        <div class="watch-reward">
-          $0.15
+        <div class="reward-pill" style="margin-left:auto;">
+          +$0.15
         </div>
 
       </div>
 
 
-      <div class="progress-wrap">
+      <div class="progress-area">
 
-        <div class="progress-top">
-          <span>Daily ads</span>
-
-          <span>
-            <span id="watchedCount">0</span>/20
-          </span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
         </div>
 
-        <div class="progress">
-          <div
-            class="progress-bar"
-            id="watchProgress">
-          </div>
+        <div class="progress-text">
+          <span>Ready to earn</span>
+          <span><span id="watchedToday">0</span> / 20 today</span>
         </div>
 
       </div>
 
 
-      <button
-        type="button"
-        class="primary-btn"
-        id="watchBtn">
-        WATCH AD
+      <button class="watch-btn" id="watchBtn">
+        ▶ Watch Ad
       </button>
 
     </div>
 
 
-    <!-- PROFILE -->
+    <!-- STATS -->
 
-    <div class="card">
+    <div class="stats">
 
-      <div class="card-title">Telegram Account</div>
+      <div class="stat">
 
-      <div class="profile-row">
-        <span class="profile-key">Name</span>
-        <span class="profile-value" id="profileName">—</span>
+        <div class="stat-label">
+          Total Watched
+        </div>
+
+        <div class="stat-value">
+          <span id="totalWatched">0</span>
+        </div>
+
+        <div class="stat-unit">
+          Ads
+        </div>
+
       </div>
 
-      <div class="profile-row">
-        <span class="profile-key">Username</span>
-        <span class="profile-value" id="profileUsername">—</span>
-      </div>
 
-      <div class="profile-row">
-        <span class="profile-key">Telegram ID</span>
-        <span class="profile-value" id="profileId">—</span>
+      <div class="stat">
+
+        <div class="stat-label">
+          Total Earned
+        </div>
+
+        <div class="stat-value green">
+          $<span id="totalEarned">0.00</span>
+        </div>
+
       </div>
 
     </div>
@@ -629,122 +851,130 @@ button{
   </section>
 
 
-  <!-- ================= TASKS ================= -->
+  <!-- TASKS -->
 
   <section id="tasksPage" class="page">
 
+    <div class="section-title">
+      Tasks
+    </div>
+
     <div class="card">
 
-      <div class="card-title">Tasks</div>
+      <div class="task">
 
-      <div class="card-sub">
-        Complete available tasks to earn rewards.
-      </div>
+        <div>
+          <div class="card-title">
+            Complete your profile
+          </div>
 
-    </div>
-
-
-    <div class="task">
-
-      <div class="task-info">
-
-        <div class="task-title">
-          Daily Watch
+          <div class="card-sub">
+            Keep your account information ready.
+          </div>
         </div>
 
-        <div class="task-desc">
-          Watch available ads today
+        <div class="task-reward">
+          +$0.05
         </div>
 
       </div>
 
-      <button
-        type="button"
-        class="small-btn"
-        id="taskWatchBtn">
-        OPEN
-      </button>
 
-    </div>
+      <div class="task">
 
+        <div>
+          <div class="card-title">
+            Daily activity
+          </div>
 
-    <div class="task">
-
-      <div class="task-info">
-
-        <div class="task-title">
-          Daily Bonus
+          <div class="card-sub">
+            Watch ads and stay active.
+          </div>
         </div>
 
-        <div class="task-desc">
-          Claim your daily $0.10 bonus
+        <div class="task-reward">
+          +$0.10
         </div>
 
       </div>
 
-      <button
-        type="button"
-        class="small-btn"
-        id="taskBonusBtn">
-        CLAIM
-      </button>
+
+      <div class="task">
+
+        <div>
+          <div class="card-title">
+            Invite friends
+          </div>
+
+          <div class="card-sub">
+            Invite friends and grow your network.
+          </div>
+        </div>
+
+        <div class="task-reward">
+          +$0.20
+        </div>
+
+      </div>
 
     </div>
 
   </section>
 
 
-  <!-- ================= INVITE ================= -->
+  <!-- INVITE -->
 
   <section id="invitePage" class="page">
 
-    <div class="card invite-box">
+    <div class="section-title">
+      Invite &amp; Earn
+    </div>
+
+    <div class="card">
 
       <div class="card-title">
-        Invite & Earn
+        Your Referral Link
       </div>
 
-      <div class="invite-count" id="inviteCount">
-        0
+      <div class="card-sub">
+        Share your referral link with friends.
       </div>
 
-      <div class="invite-label">
-        Verified invites
+      <div class="ref-box">
+
+        <input
+          class="ref-input"
+          id="refLink"
+          type="text"
+          readonly
+          value="Loading..."
+        >
+
+        <button class="copy-btn" id="copyBtn">
+          Copy
+        </button>
+
       </div>
 
-      <button
-        type="button"
-        class="primary-btn"
-        id="shareBtn">
-        INVITE FRIENDS
+      <button class="invite-btn" id="shareBtn">
+        Share Referral Link
       </button>
-
-      <button
-        type="button"
-        class="dark-btn"
-        id="copyBtn"
-        style="margin-top:8px;">
-        COPY REFERRAL LINK
-      </button>
-
-      <div
-        class="ref-box"
-        id="refLink">
-        Generating referral link...
-      </div>
 
     </div>
 
 
     <div class="card">
 
-      <div class="card-title">
-        Withdrawal requirement
+      <div class="small-label">
+        Total Invites
+      </div>
+
+      <div class="balance" style="font-size:25px;margin-top:7px;">
+        <span id="inviteCount">0</span>
       </div>
 
       <div class="card-sub">
-        Minimum balance: $5.00<br>
-        Required verified invites: 3
+        3 successful invites are required before withdrawal.
       </div>
 
     </div>
@@ -752,102 +982,74 @@ button{
   </section>
 
 
-  <!-- ================= WALLET ================= -->
+  <!-- WALLET -->
 
   <section id="walletPage" class="page">
 
-    <div class="balance-card">
-
-      <div class="balance-label">
-        AVAILABLE BALANCE
-      </div>
-
-      <div class="balance">
-        $<span id="walletBalance">0.00</span>
-      </div>
-
+    <div class="section-title">
+      Wallet
     </div>
-
 
     <div class="card">
 
-      <div class="card-title">
+      <div class="wallet-balance">
+
+        <div class="small-label">
+          Available Balance
+        </div>
+
+        <div class="wallet-balance-value">
+          $<span id="walletBalance">0.00</span>
+        </div>
+
+      </div>
+
+
+      <div class="small-label">
         Withdrawal Method
       </div>
 
-      <div class="card-sub">
-        Select your preferred payout method.
+      <div class="methods">
+
+        <button class="method selected" data-method="USDT TRC20">
+          💰 USDT TRC20
+        </button>
+
+        <button class="method" data-method="PayPal">
+          💳 PayPal
+        </button>
+
+        <button class="method" data-method="UPI">
+          🇮🇳 UPI
+        </button>
+
       </div>
-
-      <button
-        type="button"
-        class="wallet-method"
-        data-method="USDT TRC20">
-
-        <div class="method-title">
-          USDT TRC20
-        </div>
-
-        <div class="method-sub">
-          USDT wallet address
-        </div>
-
-      </button>
-
-
-      <button
-        type="button"
-        class="wallet-method"
-        data-method="PayPal">
-
-        <div class="method-title">
-          PayPal
-        </div>
-
-        <div class="method-sub">
-          PayPal email
-        </div>
-
-      </button>
-
-
-      <button
-        type="button"
-        class="wallet-method"
-        data-method="UPI">
-
-        <div class="method-title">
-          UPI
-        </div>
-
-        <div class="method-sub">
-          UPI ID
-        </div>
-
-      </button>
 
 
       <input
-        type="text"
-        id="walletInput"
-        class="field"
-        placeholder="Enter payout details"
-        autocomplete="off"
+        class="withdraw-input"
+        id="withdrawAmount"
+        type="number"
+        min="5"
+        step="0.01"
+        placeholder="Withdrawal amount (minimum $5)"
       >
 
 
-      <button
-        type="button"
-        class="primary-btn"
-        id="withdrawBtn">
-        WITHDRAW
+      <input
+        class="withdraw-input"
+        id="withdrawAddress"
+        type="text"
+        placeholder="Enter payout address / UPI ID / PayPal"
+      >
+
+
+      <button class="withdraw-btn" id="withdrawBtn">
+        Request Withdrawal
       </button>
 
 
-      <div
-        id="walletMessage"
-        class="message">
-      </div>
+      <div class="message" id="withdrawMessage"></div>
 
     </div>
 
@@ -860,513 +1062,234 @@ button{
 
 <nav class="bottom-nav">
 
-  <button
-    type="button"
-    class="nav-btn active"
-    data-page="homePage">
-    HOME
-  </button>
+  <div class="nav-inner">
 
-  <button
-    type="button"
-    class="nav-btn"
-    data-page="tasksPage">
-    TASKS
-  </button>
+    <button class="nav-btn active" data-page="home">
+      <span class="nav-icon">⌂</span>
+      <span>HOME</span>
+    </button>
 
-  <button
-    type="button"
-    class="nav-btn"
-    data-page="invitePage">
-    INVITE
-  </button>
+    <button class="nav-btn" data-page="tasks">
+      <span class="nav-icon">✓</span>
+      <span>TASKS</span>
+    </button>
 
-  <button
-    type="button"
-    class="nav-btn"
-    data-page="walletPage">
-    WALLET
-  </button>
+    <button class="nav-btn" data-page="invite">
+      <span class="nav-icon">♟</span>
+      <span>INVITE</span>
+    </button>
+
+    <button class="nav-btn" data-page="wallet">
+      <span class="nav-icon">▣</span>
+      <span>WALLET</span>
+    </button>
+
+  </div>
 
 </nav>
 
 
-<div
-  class="toast"
-  id="toast">
-</div>
+<div class="toast" id="toast"></div>
 
 
 <script>
 (function(){
 
-"use strict";
+  "use strict";
 
-/* =========================================
-   CONFIG
-========================================= */
+  /* =========================
+     TELEGRAM
+  ========================= */
 
-const DAILY_AD_LIMIT = 20;
-const AD_REWARD = 0.15;
-const DAILY_BONUS = 0.10;
-const MIN_WITHDRAW = 5;
-const REQUIRED_INVITES = 3;
-
-/*
-  IMPORTANT:
-  Real ad provider URL should be added later.
-  Do NOT put Telegram bot token here.
-*/
-const AD_URL = "";
-
-
-/* =========================================
-   TELEGRAM
-========================================= */
-
-const tg =
-  window.Telegram &&
-  window.Telegram.WebApp
-    ? window.Telegram.WebApp
-    : null;
-
-if(tg){
+  var tg = null;
 
   try{
-    tg.ready();
-    tg.expand();
-  }catch(e){}
-
-}
-
-
-/* =========================================
-   HELPERS
-========================================= */
-
-function $(id){
-  return document.getElementById(id);
-}
-
-
-function money(value){
-
-  const number = Number(value);
-
-  if(!Number.isFinite(number)){
-    return "0.00";
+    if(window.Telegram && window.Telegram.WebApp){
+      tg = window.Telegram.WebApp;
+      tg.ready();
+      tg.expand();
+    }
+  }catch(error){
+    console.log("Telegram WebApp unavailable");
   }
 
-  return number.toFixed(2);
-}
+
+  /* =========================
+     STORAGE
+  ========================= */
+
+  var STORAGE_KEY = "moneyFollowsState";
+
+  var defaultState = {
+    balance: 0,
+    totalEarned: 0,
+    totalWatched: 0,
+    todayWatched: 0,
+    lastWatchDate: "",
+    lastBonusDate: "",
+    invites: 0
+  };
+
+  var state = loadState();
 
 
-function todayKey(){
+  function loadState(){
 
-  const now = new Date();
+    try{
 
-  const year = now.getFullYear();
-  const month = String(now.getMonth()+1).padStart(2,"0");
-  const day = String(now.getDate()).padStart(2,"0");
+      var saved = localStorage.getItem(STORAGE_KEY);
 
-  return year + "-" + month + "-" + day;
-}
-
-
-function showToast(message){
-
-  const toast = $("toast");
-
-  if(!toast) return;
-
-  toast.textContent = message;
-  toast.classList.add("show");
-
-  clearTimeout(window.__toastTimer);
-
-  window.__toastTimer = setTimeout(function(){
-
-    toast.classList.remove("show");
-
-  },2200);
-}
-
-
-/* =========================================
-   TELEGRAM USER
-========================================= */
-
-let telegramUser = null;
-
-if(
-  tg &&
-  tg.initDataUnsafe &&
-  tg.initDataUnsafe.user
-){
-
-  telegramUser = tg.initDataUnsafe.user;
-
-}
-
-
-function getUserKey(){
-
-  if(
-    telegramUser &&
-    telegramUser.id
-  ){
-
-    return String(telegramUser.id);
-
-  }
-
-  return "guest";
-}
-
-
-/* =========================================
-   STATE
-========================================= */
-
-const STORAGE_KEY =
-  "moneyFollowsState_" + getUserKey();
-
-
-let state = {
-
-  balance:0,
-  totalEarned:0,
-  totalWatched:0,
-
-  todayWatched:0,
-  watchDate:todayKey(),
-
-  bonusClaimed:false,
-  bonusDate:"",
-
-  invites:0,
-
-  selectedMethod:"",
-
-  walletDetails:""
-
-};
-
-
-/* =========================================
-   LOAD STATE
-========================================= */
-
-function loadState(){
-
-  try{
-
-    const saved =
-      localStorage.getItem(STORAGE_KEY);
-
-    if(saved){
-
-      const parsed = JSON.parse(saved);
-
-      if(
-        parsed &&
-        typeof parsed === "object"
-      ){
-
-        state = Object.assign(
-          state,
-          parsed
-        );
-
+      if(!saved){
+        return copyDefaultState();
       }
 
-    }
+      var parsed = JSON.parse(saved);
 
-  }catch(error){
-
-    console.log("State load error",error);
-
-  }
-
-
-  resetDailyIfNeeded();
-
-  saveState();
-
-}
-
-
-/* =========================================
-   SAVE STATE
-========================================= */
-
-function saveState(){
-
-  try{
-
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(state)
-    );
-
-  }catch(error){
-
-    console.log("State save error",error);
-
-  }
-
-}
-
-
-/* =========================================
-   DAILY RESET
-========================================= */
-
-function resetDailyIfNeeded(){
-
-  const today = todayKey();
-
-
-  /*
-    Watch limit resets at local midnight.
-  */
-
-  if(state.watchDate !== today){
-
-    state.todayWatched = 0;
-    state.watchDate = today;
-
-  }
-
-
-  /*
-    Daily bonus resets at local midnight.
-  */
-
-  if(state.bonusDate !== today){
-
-    state.bonusClaimed = false;
-
-  }
-
-}
-
-
-/* =========================================
-   UI UPDATE
-========================================= */
-
-function updateUI(){
-
-  resetDailyIfNeeded();
-
-
-  $("balance").textContent =
-    money(state.balance);
-
-  $("walletBalance").textContent =
-    money(state.balance);
-
-  $("totalEarned").textContent =
-    money(state.totalEarned);
-
-
-  $("todayWatched").textContent =
-    state.todayWatched;
-
-  $("watchedCount").textContent =
-    state.todayWatched;
-
-
-  $("inviteCount").textContent =
-    state.invites;
-
-
-  const percent =
-    Math.min(
-      100,
-      (state.todayWatched / DAILY_AD_LIMIT) * 100
-    );
-
-
-  $("watchProgress").style.width =
-    percent + "%";
-
-
-  const bonusBtn = $("bonusBtn");
-
-
-  if(state.bonusClaimed){
-
-    bonusBtn.textContent = "CLAIMED";
-    bonusBtn.disabled = true;
-    bonusBtn.style.opacity = ".45";
-
-  }else{
-
-    bonusBtn.textContent = "CLAIM";
-    bonusBtn.disabled = false;
-    bonusBtn.style.opacity = "1";
-
-  }
-
-
-  const user =
-    telegramUser;
-
-
-  if(user){
-
-    const first =
-      user.first_name || "";
-
-    const last =
-      user.last_name || "";
-
-    const fullName =
-      (first + " " + last).trim();
-
-
-    $("profileName").textContent =
-      fullName || "Telegram User";
-
-
-    $("profileUsername").textContent =
-      user.username
-        ? "@" + user.username
-        : "Not set";
-
-
-    $("profileId").textContent =
-      String(user.id);
-
-
-    $("headerUser").textContent =
-      user.username
-        ? "@" + user.username
-        : fullName || "Telegram User";
-
-  }else{
-
-    $("profileName").textContent =
-      "Telegram User";
-
-    $("profileUsername").textContent =
-      "Not available";
-
-    $("profileId").textContent =
-      "Not available";
-
-    $("headerUser").textContent =
-      "Telegram User";
-
-  }
-
-
-  updateReferralLink();
-
-}
-
-
-/* =========================================
-   NAVIGATION
-========================================= */
-
-function openPage(pageId){
-
-  const pages =
-    document.querySelectorAll(".page");
-
-  pages.forEach(function(page){
-
-    page.classList.remove("active");
-
-  });
-
-
-  const selected =
-    document.getElementById(pageId);
-
-  if(selected){
-
-    selected.classList.add("active");
-
-  }
-
-
-  const navButtons =
-    document.querySelectorAll(".nav-btn");
-
-  navButtons.forEach(function(button){
-
-    if(button.dataset.page === pageId){
-
-      button.classList.add("active");
-
-    }else{
-
-      button.classList.remove("active");
-
-    }
-
-  });
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
-
-
-/* =========================================
-   NAV BUTTONS
-========================================= */
-
-document.querySelectorAll(".nav-btn")
-.forEach(function(button){
-
-  button.addEventListener(
-    "click",
-    function(){
-
-      const page =
-        button.dataset.page;
-
-      if(page){
-
-        openPage(page);
-
+      if(!parsed || typeof parsed !== "object"){
+        return copyDefaultState();
       }
 
+      return {
+        balance: numberOrZero(parsed.balance),
+        totalEarned: numberOrZero(parsed.totalEarned),
+        totalWatched: numberOrZero(parsed.totalWatched),
+        todayWatched: numberOrZero(parsed.todayWatched),
+        lastWatchDate: String(parsed.lastWatchDate || ""),
+        lastBonusDate: String(parsed.lastBonusDate || ""),
+        invites: numberOrZero(parsed.invites)
+      };
+
+    }catch(error){
+
+      return copyDefaultState();
+
     }
-  );
-
-});
-
-
-/* =========================================
-   DAILY BONUS
-========================================= */
-
-function claimBonus(){
-
-  resetDailyIfNeeded();
-
-
-  if(state.bonusClaimed){
-
-    showToast(
-      "Daily bonus already claimed today."
-    );
-
-    return;
 
   }
 
 
-  state.balance += DAILY_BONUS;
+  function copyDefaultState(){
 
-  state.totalEarned += DAILY_BONUS;
-      
+    return {
+      balance:0,
+      totalEarned:0,
+      totalWatched:0,
+      todayWatched:0,
+      lastWatchDate:"",
+      lastBonusDate:"",
+      invites:0
+    };
+
+  }
+
+
+  function numberOrZero(value){
+
+    var n = Number(value);
+
+    if(!isFinite(n) || n < 0){
+      return 0;
+    }
+
+    return n;
+
+  }
+
+
+  function saveState(){
+
+    try{
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(state)
+      );
+    }catch(error){
+      console.log("Storage unavailable");
+    }
+
+  }
+
+
+  /* =========================
+     DATE
+  ========================= */
+
+  function today(){
+
+    var d = new Date();
+
+    return d.getFullYear() +
+      "-" +
+      String(d.getMonth()+1).padStart(2,"0") +
+      "-" +
+      String(d.getDate()).padStart(2,"0");
+
+  }
+
+
+  function resetDailyIfNeeded(){
+
+    var current = today();
+
+    if(state.lastWatchDate !== current){
+
+      state.todayWatched = 0;
+      state.lastWatchDate = current;
+
+      saveState();
+
+    }
+
+  }
+
+
+  /* =========================
+     DOM HELPERS
+  ========================= */
+
+  function get(id){
+    return document.getElementById(id);
+  }
+
+
+  function showToast(message){
+
+    var toast = get("toast");
+
+    if(!toast){
+      return;
+    }
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(showToast.timer);
+
+    showToast.timer = setTimeout(function(){
+
+      toast.classList.remove("show");
+
+    },2200);
+
+  }
+
+
+  /* =========================
+     UI UPDATE
+  ========================= */
+
+  function updateUI(){
+
+    resetDailyIfNeeded();
+
+    get("balance").textContent =
+      state.balance.toFixed(2);
+
+    get("totalEarned").textContent =
+      state.totalEarned.toFixed(2);
+
+    get("walletBalance").textContent =
+      state.balance.toFixed(2);
+
+    get("totalWatched").textContent =
+      Math.floor(state.totalWatched);
