@@ -50,7 +50,7 @@ export async function onRequestPost(context) {
         },
         body: JSON.stringify({
           chat_id: chatId,
-          text: "💎 MONEY FOLLOWS\n\n🚀 Welcome! Your Mini App is ready!",
+          text: "💎 MONEY FOLLOWS | Earn Rewards 💰\n\n🚀 Complete simple activities and earn rewards!\n\n🔥 Earn through:\n👥 Invites\n📺 Watch Ads\n🎁 Daily Bonus\n✅ Complete Tasks\n\n💳 Track your rewards easily.\n👇 Tap below to get started!",
           reply_markup: {
             inline_keyboard: [
               [
